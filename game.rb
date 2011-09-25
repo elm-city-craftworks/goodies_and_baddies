@@ -1,11 +1,17 @@
 # from http://mon-ouie.github.com/projects/ray.html
 
 require 'ray'
-Ray.game "Hello world!" do
+Ray.game "Test" do
   register { add_hook :quit, method(:exit!) }
-  scene :hello do
-    @text = text "Hello world!", :angle => 30, :at => [100, 100], :size => 30
-    render { |win| win.draw @text }
+
+  scene :square do
+    @rect = Ray::Polygon.rectangle([-10, -10, 20, 20], Ray::Color.red)
+    @rect.pos = [200, 200]
+
+    render do |win|
+      win.draw @rect
+    end
   end
-   scenes << :hello
+
+  scenes << :square
 end
