@@ -52,6 +52,20 @@ Ray.game "Test" do
         [e.pos.x, e.pos.y, 10, 10].to_rect.inside?([@rect.pos.x, @rect.pos.y, 20, 20])
       }
 
+      @baddies.each do |e|
+        if e.pos.x < @rect.pos.x
+          e.pos += [rand*2.5,0]
+        else
+          e.pos -= [rand*2.5,0]
+        end
+
+        if e.pos.y < @rect.pos.y
+          e.pos += [0, rand*2.5]
+        else
+          e.pos -= [0, rand*2.5]
+        end
+      end
+
       @game_over ||= @baddies.any? { |e|
         [e.pos.x, e.pos.y, 15, 15].to_rect.collide?([@rect.pos.x, @rect.pos.y, 20,20])
       }
