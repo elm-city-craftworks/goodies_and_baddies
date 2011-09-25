@@ -20,6 +20,17 @@ Ray.game "Test" do
       g
     end
 
+    max_x = window.size.width  - 30
+    max_y = window.size.height - 30
+
+    @baddies = 5.times.map do
+      x = rand(max_x) + 15
+      y = rand(max_y) + 15
+      g = Ray::Polygon.rectangle([0,0,15,15], Ray::Color.blue)
+      g.pos += [x,y]
+      g
+    end
+    
     always do
       if @rect.pos.x - 2 > 0
         @rect.pos += [-2, 0] if holding?(:left)
@@ -47,6 +58,7 @@ Ray.game "Test" do
         win.draw text("YOU WIN", :at => [100,100], :size => 60)
       else
         @goodies.each { |g| win.draw(g) }
+        @baddies.each { |g| win.draw(g) }
         win.draw @rect
       end
     end
