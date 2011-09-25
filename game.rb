@@ -43,8 +43,12 @@ Ray.game "Test" do
     end
 
     render do |win|
-      @goodies.each { |g| win.draw(g) }
-      win.draw @rect
+      if @goodies.empty?
+        win.draw text("YOU WIN", :at => [100,100], :size => 60)
+      else
+        @goodies.each { |g| win.draw(g) }
+        win.draw @rect
+      end
     end
   end
 
