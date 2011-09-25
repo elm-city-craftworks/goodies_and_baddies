@@ -8,10 +8,10 @@ Ray.game "Test" do
     @rect.pos = [200,200]
 
     always do
-      @rect.pos += [-1, 0] if holding?(:left)
-      @rect.pos += [1, 0] if holding?(:right)
-      @rect.pos += [0, -1] if holding?(:up)
-      @rect.pos += [0, 1] if holding?(:down)
+      @rect.pos += [-2, 0] if holding?(:left)
+      @rect.pos += [2, 0] if holding?(:right)
+      @rect.pos += [0, -2] if holding?(:up)
+      @rect.pos += [0, 2] if holding?(:down)
     end
 
     render do |win|
