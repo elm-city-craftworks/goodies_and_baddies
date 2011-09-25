@@ -7,17 +7,15 @@ Ray.game "Test" do
     @rect = Ray::Polygon.rectangle([-10, -10, 20, 20], Ray::Color.red)
     @rect.pos = [200,200]
 
-    on :key_press, key(:left) do 
-      @moving_left = true
-    end
-
-    on :key_release, key(:left) do
-      @moving_left = false
+    always do
+      @rect.pos += [-1, 0] if holding?(:left)
+      @rect.pos += [1, 0] if holding?(:right)
+      @rect.pos += [0, -1] if holding?(:up)
+      @rect.pos += [0, 1] if holding?(:down)
     end
 
     render do |win|
       win.draw @rect
-      @rect.pos += [-1,0] if @moving_left
     end
   end
 
