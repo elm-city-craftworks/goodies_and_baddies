@@ -4,7 +4,7 @@ Ray.game "Test" do
   register { add_hook :quit, method(:exit!) }
 
   scene :square do
-    @rect = Ray::Polygon.rectangle([-10, -10, 20, 20], Ray::Color.red)
+    @rect = Ray::Polygon.rectangle([0, 0, 20, 20], Ray::Color.red)
     @rect.pos = [200,200]
 
     max_x = window.size.width - 20
@@ -36,8 +36,11 @@ Ray.game "Test" do
       if @rect.pos.y + 2 < window.size.height
         @rect.pos += [0, 2] if holding?(:down)
       end
-    end
 
+      @goodies.reject! { |e| 
+        [e.pos.x, e.pos.y, 10, 10].to_rect.inside?([@rect.pos.x, @rect.pos.y, 20, 20])
+      }
+    end
 
     render do |win|
       @goodies.each { |g| win.draw(g) }
