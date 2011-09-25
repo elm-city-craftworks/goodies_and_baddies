@@ -51,11 +51,17 @@ Ray.game "Test" do
       @goodies.reject! { |e| 
         [e.pos.x, e.pos.y, 10, 10].to_rect.inside?([@rect.pos.x, @rect.pos.y, 20, 20])
       }
+
+      @game_over ||= @baddies.any? { |e|
+        [e.pos.x, e.pos.y, 15, 15].to_rect.collide?([@rect.pos.x, @rect.pos.y, 20,20])
+      }
     end
 
     render do |win|
       if @goodies.empty?
         win.draw text("YOU WIN", :at => [100,100], :size => 60)
+      elsif @game_over
+        win.draw text("YOU LOSE", :at => [100,100], :size => 60)
       else
         @goodies.each { |g| win.draw(g) }
         @baddies.each { |g| win.draw(g) }
