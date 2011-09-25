@@ -21,11 +21,23 @@ Ray.game "Test" do
     end
 
     always do
-      @rect.pos += [-2, 0] if holding?(:left)
-      @rect.pos += [2, 0] if holding?(:right)
-      @rect.pos += [0, -2] if holding?(:up)
-      @rect.pos += [0, 2] if holding?(:down)
+      if @rect.pos.x - 2 > 0
+        @rect.pos += [-2, 0] if holding?(:left)
+      end
+ 
+      if @rect.pos.x + 2 < window.size.width
+        @rect.pos += [2, 0] if holding?(:right)
+      end
+
+      if @rect.pos.y - 2 > 0
+        @rect.pos += [0, -2] if holding?(:up)
+      end
+
+      if @rect.pos.y + 2 < window.size.height
+        @rect.pos += [0, 2] if holding?(:down)
+      end
     end
+
 
     render do |win|
       @goodies.each { |g| win.draw(g) }
